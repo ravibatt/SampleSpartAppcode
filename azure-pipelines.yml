@@ -16,8 +16,8 @@ from datetime import date, timedelta, datetime
 from os.path import expanduser, join, abspath
 
 
-trigger:
-- master
+# trigger:
+# - master
 
 pool:
   vmImage: 'Ubuntu-16.04'
