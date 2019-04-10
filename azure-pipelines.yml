@@ -2,24 +2,6 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
-
-
-
-trigger:
-- master
-
-pool:
-  vmImage: 'Ubuntu-16.04'
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-  
 import os
 import pandas as pd
 from pyspark.context import SparkContext
@@ -33,6 +15,17 @@ from pyspark.sql.functions import *
 from datetime import date, timedelta, datetime
 from os.path import expanduser, join, abspath
 
+
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+  
   spark = SparkSession.builder.appName('mstr_metrics').getOrCreate()
 spark.conf.set("mapred.input.dir.recursive","true")
 spark.conf.set("mapreduce.input.fileinputformat.input.dir.recursive","true")
@@ -51,3 +44,11 @@ status_date = status_date.withColumn('YR', sf.year(sf.col('STATUS_DATE')))\
 .withColumn('PoW', sf.when(sf.col('DoW').isin('Saturday','Sunday'), 'WeekEnd').otherwise('WeekDay'))
 
 status_date.show()
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+  
+
+
