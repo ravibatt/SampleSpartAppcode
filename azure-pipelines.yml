@@ -16,7 +16,7 @@ from pyspark.sql.functions import *
 from datetime import date, timedelta, datetime
 from os.path import expanduser, join, abspath
 
-trigger:
+# trigger:
 - master
 
 pool:
